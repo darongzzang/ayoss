@@ -29,13 +29,13 @@ struct AddTodoView: View {
                     }
                 }
             }
-            .navigationTitle("새 할 일 추가")
+            
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("취소") {
-                        dismiss()
-                    }
-                }
+//                ToolbarItem(placement: .cancellationAction) {
+//                    Button("취소") {
+//                        dismiss()
+//                    }
+//                }
                 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("저장") {

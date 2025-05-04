@@ -16,32 +16,50 @@ struct TodoListView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(todoItems) { item in
-                    TodoItemRow(item: item)
-                        .onTapGesture {
-                            selectedItem = item
+            ZStack {
+                VStack(alignment: .leading) {
+                    Text("할 일 목록")
+                        .fontWeight(.bold)
+                        .font(.system(size: 32))
+                        .foregroundStyle(.accent)
+                        .padding(.top, 32)
+                        .padding(.horizontal, 16)
+                    List {
+                        ForEach(todoItems) { item in
+                            TodoItemRow(item: item)
+                                .onTapGesture {
+                                    selectedItem = item
+                                }
                         }
+                        .onDelete(perform: deleteItems)
+                    }
+//                    .listStyle(.grouped)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .navigationTitle("할 일 목록")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                
+                VStack {
+                    Spacer()
                     Button(action: {
                         showingAddSheet = true
                     }) {
-                        Label("추가", systemImage: "plus")
+                        Text("할 일 기록하기")
+                            .fontWeight(.bold)
+                            .font(.system(size: 16))
                     }
+                    .padding(.bottom, 50)
                 }
             }
+            
+            
             .sheet(isPresented: $showingAddSheet) {
                 AddTodoView()
             }
             .sheet(item: $selectedItem) { item in
                 TodoDetailView(item: item)
             }
+            
+            
         }
+        
     }
     
     private func deleteItems(offsets: IndexSet) {
